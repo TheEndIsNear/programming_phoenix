@@ -14,7 +14,6 @@ defmodule RumblWeb.VideoChannel do
       video
       |> Multimedia.list_annotations()
       |> Phoenix.View.render_many(AnnotationView, "annotation.json")
-      |> IO.inspect(label: :annotations)
 
     {:ok, %{annotations: annotations}, assign(socket, :video_id, video_id)}
   end
