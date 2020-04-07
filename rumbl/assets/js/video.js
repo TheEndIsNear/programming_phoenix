@@ -17,7 +17,15 @@ let Video = {
         let postButton   = document.getElementById("msg-submit")
         let vidChannel   = socket.channel("videos:" + videoId)
 
-        postButton.addEventListener("click", e => {
+        msgContainer.addEventListener("click", e => {
+            e.preventDefault()
+            let seconds = e.target.getAttribute("data-seek") ||
+                        e.target.parentNode.getAttribute("data-seek")
+            if(!seconds) { return }
+            Player.seekTo(seconds)
+        }),
+
+       postButton.addEventListener("click", e => {
             let payload = {body: msgInput.value, at: Player.getCurrentTime()}
             vidChannel.push("new_annotation", payload)
                       .receive("error", e => console.log(e))
@@ -46,12 +54,14 @@ let Video = {
 
         template.innerHTML = `
         <a href="#" data-seek="${this.esc(at)}">
-            <b>${this.esc(user.username)}</b>: ${this.esc(body)}
+            <b>[${this.esc(this.formatTime(at))}] ${this.esc(user.username)}</b>: ${this.esc(body)}
         </a>
         ` 
         msgContainer.appendChild(template)
         msgContainer.scrollTop = msgContainer.scrollHeight
     },
+
+    
 
     scheduleMessages(msgContainer, annotations) {
         clearTimeout(this.scheduleTimer)
@@ -72,11 +82,14 @@ let Video = {
             }
         })
     },
+
     formatTime(at) {
         let date = new Date(null)
         date.setSeconds(at / 1000)
         return date.toISOString().substr(14, 5)
-    }
+    },
+
+    
 }
 
 export default Video
