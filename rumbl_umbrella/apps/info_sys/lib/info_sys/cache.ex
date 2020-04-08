@@ -9,6 +9,7 @@ defmodule InfoSys.Cache do
       timer: nil,
       table: new_table(opts[:name])
     }
+
     {:ok, schedule_clear(state)}
   end
 
@@ -41,7 +42,8 @@ defmodule InfoSys.Cache do
       :named_table,
       :public,
       read_concurrency: true,
-      write_concurrency: true])
+      write_concurrency: true
+    ])
   end
 
   defp schedule_clear(state) do
