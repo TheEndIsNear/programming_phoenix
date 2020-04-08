@@ -9,7 +9,7 @@ defmodule Rumbl.Application do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      Rumbl.Repo,
+      Rumbl.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

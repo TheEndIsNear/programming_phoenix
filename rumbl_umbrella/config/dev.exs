@@ -76,7 +76,7 @@ config :phoenix, :plug_init_mode, :runtime
 config :phoenix, :stacktrace_depth, 20
 
 wolfram_app_id =
-    System.get_env("WOLFRAM_APP_ID") ||
+  System.get_env("WOLFRAM_APP_ID") ||
     raise """
     environment variable WOLFRAM_APP_ID is missing.
     """

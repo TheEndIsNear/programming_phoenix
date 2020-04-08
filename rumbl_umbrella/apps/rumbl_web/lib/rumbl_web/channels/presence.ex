@@ -68,8 +68,9 @@ defmodule RumblWeb.Presence do
   information, while maintaining the required `:metas` field from the
   original presence data.
   """
-  use Phoenix.Presence, otp_app: :rumbl_web,
-                        pubsub_server: RumblWeb.PubSub
+  use Phoenix.Presence,
+    otp_app: :rumbl_web,
+    pubsub_server: RumblWeb.PubSub
 
   def fetch(_topic, entries) do
     users =
@@ -80,8 +81,8 @@ defmodule RumblWeb.Presence do
         {to_string(user.id), %{username: user.username}}
       end)
 
-      for({key, %{metas: metas}} <- entries, into: %{}) do
-        {key, %{metas: metas, user: users[key]}}
-      end
+    for({key, %{metas: metas}} <- entries, into: %{}) do
+      {key, %{metas: metas, user: users[key]}}
+    end
   end
 end

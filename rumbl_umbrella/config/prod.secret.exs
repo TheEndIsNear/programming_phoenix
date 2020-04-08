@@ -41,7 +41,7 @@ config :rumbl_web, RumblWeb.Endpoint,
 # See `mix help release` for more information.
 
 wolfram_app_id =
-    System.get_env("WOLFRAM_APP_ID") ||
+  System.get_env("WOLFRAM_APP_ID") ||
     raise """
     environment variable WOLFRAM_APP_ID is missing.
     """
