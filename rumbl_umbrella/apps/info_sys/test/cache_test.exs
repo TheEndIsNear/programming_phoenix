@@ -4,7 +4,7 @@ defmodule InfoSysTest.CacheTest do
   @moduletag clear_interval: 100
 
   defp assert_shutdown(pid) do
-    ref = Process.monitor()pid
+    ref = Process.monitor(pid)
     Process.unlink(pid)
     Process.exit(pid, :kill)
 
@@ -45,7 +45,7 @@ defmodule InfoSysTest.CacheTest do
 
   @tag clear_interval: 60_000
   test "values are cleaned up on exit", %{name: name, pid: pid} do
-    assert :ok = Cach.put(name, :key1, :value1)
+    assert :ok = Cache.put(name, :key1, :value1)
     assert_shutdown(pid)
     {:ok, _cache} = Cache.start_link(name: name)
     assert Cache.fetch(name, :key1) == :error
