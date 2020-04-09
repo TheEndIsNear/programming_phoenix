@@ -8,7 +8,6 @@ defmodule InfoSys do
   end
 
   def compute(query, opts \\ []) do
-    IO.inspect(query)
     timeout = opts[:timeout] || 10_000
     opts = Keyword.put_new(opts, :limit, 10)
     backends = opts[:backends] || @backends
@@ -29,7 +28,6 @@ defmodule InfoSys do
     |> Kernel.++(cached_results)
     |> Enum.sort(&(&1.score >= &2.score))
     |> Enum.take(opts[:limit])
-    |> IO.inspect(label: :compute)
   end
 
   defp async_query(backend, query, opts) do
