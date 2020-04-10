@@ -22,3 +22,7 @@ config :pbkdf2_elixir, :rounds, 1
 config :info_sys, :wolfram,
   app_id: "1234",
   http_client: InfoSys.Test.HTTPClient
+
+config :rumbl_web, RumblWeb.Repo,
+   timeout: 60_000,
+   pool_timeout: 60_000
